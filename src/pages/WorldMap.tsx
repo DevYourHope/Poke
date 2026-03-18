@@ -15,70 +15,70 @@ const REGIONS: Region[] = [
     id: 'kanto',
     name: 'Kanto',
     generation: 1,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/2/25/LGPE_Kanto_Map.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/25.png',
     description: 'La regione dove tutto ha avuto inizio. Casa del Professor Oak e di Biancavilla.'
   },
   {
     id: 'johto',
     name: 'Johto',
     generation: 2,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/6/64/Johto_HGSS_Map.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/152.png',
     description: 'Una regione ricca di tradizioni, situata a ovest di Kanto.'
   },
   {
     id: 'hoenn',
     name: 'Hoenn',
     generation: 3,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/8/85/Hoenn_ORAS_Map.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/252.png',
     description: 'Una regione tropicale con vasti oceani e vulcani attivi.'
   },
   {
     id: 'sinnoh',
     name: 'Sinnoh',
     generation: 4,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/0/08/Sinnoh_BDSP_Map.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/387.png',
     description: 'Una regione montuosa dominata dal Monte Corona, ricca di miti sulle origini del mondo.'
   },
   {
     id: 'unova',
     name: 'Unima',
     generation: 5,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/f/fc/Unova_B2W2_Map.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/495.png',
     description: 'Una regione metropolitana ispirata a New York, lontana dalle altre regioni conosciute.'
   },
   {
     id: 'kalos',
     name: 'Kalos',
     generation: 6,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/8/8a/Kalos_alt.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/650.png',
     description: 'Una regione a forma di stella ispirata alla Francia, culla della Megaevoluzione.'
   },
   {
     id: 'alola',
     name: 'Alola',
     generation: 7,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/b/b1/Alola_USUM_artwork.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/722.png',
     description: 'Un arcipelago tropicale composto da quattro isole naturali e una artificiale.'
   },
   {
     id: 'galar',
     name: 'Galar',
     generation: 8,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/c/ce/Galar_artwork.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/810.png',
     description: 'Una regione ispirata al Regno Unito, famosa per il fenomeno Dynamax.'
   },
   {
     id: 'paldea',
     name: 'Paldea',
     generation: 9,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/d/d3/Paldea_artwork.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/906.png',
     description: 'Una vasta regione open-world ispirata alla penisola iberica, casa del fenomeno Teracristal.'
   },
   {
     id: 'hisui',
     name: 'Hisui',
     generation: 8,
-    mapUrl: 'https://archives.bulbagarden.net/media/upload/d/d6/Hisui_artwork.png',
+    mapUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/905.png',
     description: 'L\'antica Sinnoh, un\'epoca in cui umani e Pokémon vivevano separati.'
   }
 ];
@@ -90,9 +90,9 @@ export default function WorldMap() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // Helper to get proxy URL
+  // Direct URL loading - no proxy needed for PokeAPI
   const getProxyUrl = (url: string) => {
-    return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=1200&output=webp&q=80`;
+    return url;
   };
 
   const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.5, 4));
