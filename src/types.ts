@@ -61,3 +61,17 @@ export interface Team {
   members: TeamMember[];
   createdAt: number;
 }
+
+export interface UserProfile {
+  displayName: string;
+  photoURL: string;
+  favoritePokemon?: {
+    id: number;
+    name: string;
+    sprite: string;
+  };
+  trainerTitle?: string;
+  bio?: string;
+  joinDate: number;
+  themeColor?: string;
+}
