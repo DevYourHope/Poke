@@ -91,7 +91,7 @@ function Home() {
         <title>Trainer's Log - Home | Shiny Hunting, Pokedex & Team Builder</title>
         <meta name="description" content="Welcome to Trainer's Log, your ultimate hub for Pokémon adventures. Track shiny encounters, manage your Pokédex, build perfect teams, and more!" />
         <meta name="keywords" content="Pokémon, Shiny Hunting, Pokédex, Team Builder, Pokémon Tracker, Pokémon Games, Trainer's Log" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/" />
+        <link rel="canonical" href="https://www.trainerslog.com/" />
       </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}

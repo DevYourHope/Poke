@@ -136,7 +136,7 @@ export default function Shop() {
         <title>Shop - Trainer's Log | Pokémon Games, Cards & Merch</title>
         <meta name="description" content="Browse our curated selection of Pokémon games, trading cards, and exclusive merchandise. Support Trainer's Log by shopping through our affiliate links." />
         <meta name="keywords" content="Pokémon Shop, Pokémon Games, Pokémon Cards, Pokémon Merch, Pokémon Affiliate, Buy Pokémon Games, Pokémon TCG" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/shop" />
+        <link rel="canonical" href="https://www.trainerslog.com/shop" />
       </Helmet>
       <div className="max-w-7xl mx-auto">
         {/* Header */}

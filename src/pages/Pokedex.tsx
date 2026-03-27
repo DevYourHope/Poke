@@ -7,15 +7,16 @@ import AdBanner from '../components/AdBanner';
 import { Pokemon, PersonalPokedex, CaughtPokemon, Game } from '../types';
 import { GAMES } from '../constants';
 import { usePokemonData } from '../hooks/usePokemonData';
+import { usePokemonList } from '../hooks/usePokemonList';
+import { Loader2 } from 'lucide-react';
 
 export default function Pokedex() {
   const { t } = useTranslation();
+  const { pokemonList, isLoading: isPokemonListLoading } = usePokemonList();
   const { data: pokedexes, addItem: addPokedex, updateItem: updatePokedex, removeItem: removePokedex, loading: pokedexesLoading } = usePokemonData<PersonalPokedex>('pokedexes');
   const { data: customGames } = usePokemonData<Game>('customGames');
   
   const [selectedPokedexId, setSelectedPokedexId] = useState<string | null>(null);
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [gamePokemonIds, setGamePokemonIds] = useState<number[] | null>(null);
@@ -32,13 +33,13 @@ export default function Pokedex() {
   // Timeout for loading state
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (isLoading || pokedexesLoading) {
+      if (isPokemonListLoading || pokedexesLoading) {
         console.warn('Pokedex loading timeout reached, forcing ready state');
         setForceReady(true);
       }
     }, 5000);
     return () => clearTimeout(timer);
-  }, [isLoading, pokedexesLoading]);
+  }, [isPokemonListLoading, pokedexesLoading]);
 
   const allAvailableGames = useMemo(() => {
     const hydratedCustom = customGames.map(g => {
@@ -59,54 +60,6 @@ export default function Pokedex() {
       setSelectedGameId(allAvailableGames[0].id);
     }
   }, [pokedexes, allAvailableGames, selectedPokedexId, selectedGameId]);
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      const cached = localStorage.getItem('pokedex_cache');
-      if (cached) {
-        try {
-          setPokemonList(JSON.parse(cached));
-          setIsLoading(false);
-          return;
-        } catch (e) {
-          console.error('Error parsing pokedex cache:', e);
-        }
-      }
-
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025', { signal: controller.signal });
-        clearTimeout(timeoutId);
-        
-        const data = await res.json();
-        const formatted = data.results.map((p: any, index: number) => {
-          const id = index + 1;
-          const displayName = p.name
-            .split('-')
-            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-            
-          return {
-            id,
-            name: displayName,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-            shinySprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`,
-          };
-        });
-        
-        setPokemonList(formatted);
-        localStorage.setItem('pokedex_cache', JSON.stringify(formatted));
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching pokemon:', error);
-        // Fallback or retry logic could go here
-        setIsLoading(false);
-      }
-    };
-    fetchPokemon();
-  }, []);
 
   const deletePokedex = async (id: string) => {
     await removePokedex(id);
@@ -276,10 +229,10 @@ export default function Pokedex() {
     };
   }, [currentPokedex, gamePokemonIds, allAvailableGames]);
 
-  if ((isLoading || pokedexesLoading) && !forceReady) {
+  if ((isPokemonListLoading || pokedexesLoading) && !forceReady) {
     return (
       <div className="h-screen flex flex-col items-center justify-center">
-        <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <Loader2 className="w-16 h-16 text-red-600 animate-spin mb-4" />
         <p className="text-slate-500 font-black uppercase italic tracking-widest">{t('pokedex.loading')}</p>
         <button 
           onClick={() => setForceReady(true)}
@@ -297,7 +250,7 @@ export default function Pokedex() {
         <title>Pokédex - Trainer's Log | Manage Your Pokémon Collection</title>
         <meta name="description" content="Keep track of your caught Pokémon across different games. Create custom Pokédexes, monitor your completion progress, and catch 'em all with Trainer's Log." />
         <meta name="keywords" content="Pokédex, Pokémon Collection, Catch 'em all, Pokémon Tracker, Living Dex, Shiny Pokémon, Pokémon Games" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/pokedex" />
+        <link rel="canonical" href="https://www.trainerslog.com/pokedex" />
       </Helmet>
       <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>

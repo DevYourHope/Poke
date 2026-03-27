@@ -3,21 +3,21 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import AdBanner from '../components/AdBanner';
-import { Plus, Minus, Trophy, Search, Gamepad2, Info, Sparkles, Settings2, History, Calendar, Trash2 } from 'lucide-react';
+import { Plus, Minus, Trophy, Search, Gamepad2, Info, Sparkles, Settings2, History, Calendar, Trash2, Loader2 } from 'lucide-react';
 import { Game, Pokemon, ShinyRecord } from '../types';
 import { GAMES } from '../constants';
 import { usePokemonData } from '../hooks/usePokemonData';
+import { usePokemonList } from '../hooks/usePokemonList';
 
 export default function ShinyHunting() {
   const { t } = useTranslation();
+  const { pokemonList, isLoading: isPokemonListLoading } = usePokemonList();
   const [selectedGame, setSelectedGame] = useState<Game>(GAMES[0]);
   const [customOdds, setCustomOdds] = useState<number>(4096);
   const [searchTerm, setSearchTerm] = useState('');
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [encounters, setEncounters] = useState(0);
   const [notes, setNotes] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [gamePokemonIds, setGamePokemonIds] = useState<number[] | null>(null);
   const [isGameDexLoading, setIsGameDexLoading] = useState(false);
@@ -57,60 +57,6 @@ export default function ShinyHunting() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const fetchInitialPokemon = async () => {
-      const CACHE_KEY = 'pokeapi_pokemon_list_shiny';
-      const CACHE_TIME_KEY = 'pokeapi_pokemon_list_shiny_time';
-      const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
-      const cachedData = localStorage.getItem(CACHE_KEY);
-      const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
-
-      if (cachedData && cachedTime && Date.now() - parseInt(cachedTime) < CACHE_DURATION) {
-        setPokemonList(JSON.parse(cachedData));
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1500', { signal: controller.signal });
-        clearTimeout(timeoutId);
-        
-        const data = await res.json();
-        const formatted = data.results.map((p: any, index: number) => {
-          const id = index + 1;
-          const displayName = p.name
-            .split('-')
-            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-            
-          return {
-            id,
-            name: displayName,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-            shinySprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`,
-          };
-        }).filter((p: any) => p.id <= 1025 || p.name.includes('Alola') || p.name.includes('Galar') || p.name.includes('Hisui') || p.name.includes('Paldea'));
-        
-        localStorage.setItem(CACHE_KEY, JSON.stringify(formatted));
-        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
-        
-        setPokemonList(formatted);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching pokemon:', error);
-        if (cachedData) {
-          setPokemonList(JSON.parse(cachedData));
-        }
-        setIsLoading(false);
-      }
-    };
-    fetchInitialPokemon();
   }, []);
 
   useEffect(() => {
@@ -203,13 +149,22 @@ export default function ShinyHunting() {
     }
   };
 
+  if (isPokemonListLoading) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
+        <Loader2 className="w-12 h-12 text-red-500 animate-spin mb-4" />
+        <p className="text-slate-400 font-medium uppercase tracking-widest text-xs">{t('loadingPokemon')}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-8 pb-32">
       <Helmet>
         <title>Shiny Hunter - Trainer's Log | Track Shiny Pokémon Encounters</title>
         <meta name="description" content="Use our Shiny Hunter tool to track your shiny Pokémon encounters. Calculate probabilities, manage your shiny log, and complete your shiny Pokédex." />
         <meta name="keywords" content="Shiny Hunting, Shiny Pokémon, Shiny Hunter, Pokémon Tracker, Shiny Odds, Masuda Method, Pokémon Shiny Log" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/shiny-hunting" />
+        <link rel="canonical" href="https://www.trainerslog.com/shiny-hunting" />
       </Helmet>
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
@@ -553,7 +508,7 @@ export default function ShinyHunting() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {isGameDexLoading ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('shinyHunting.syncing')}</div>
-                  ) : isLoading ? (
+                  ) : isPokemonListLoading ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('shinyHunting.loading')}</div>
                   ) : filteredPokemon.length === 0 ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('shinyHunting.noPokemon')}</div>

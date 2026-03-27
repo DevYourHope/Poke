@@ -57,7 +57,7 @@ export default function CustomGames() {
         <title>Custom Games - Trainer's Log | Create Your Own Pokémon Version</title>
         <meta name="description" content="Create custom Pokémon game versions to track your progress in ROM hacks, fan games, or specific challenges. Customize your Pokédex and shiny odds." />
         <meta name="keywords" content="Pokémon ROM Hacks, Pokémon Fan Games, Custom Pokémon Games, Pokémon Tracker, Pokémon Challenges" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/custom-games" />
+        <link rel="canonical" href="https://www.trainerslog.com/custom-games" />
       </Helmet>
       <header className="mb-12">
         <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">

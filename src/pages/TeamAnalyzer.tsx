@@ -7,6 +7,7 @@ import { Plus, Trash2, Search, Sparkles, Shield, Zap, Info, Users, ChevronRight,
 import { Pokemon, TeamMember, Game, Team } from '../types';
 import { GAMES } from '../constants';
 import { usePokemonData } from '../hooks/usePokemonData';
+import { usePokemonList } from '../hooks/usePokemonList';
 import { GoogleGenAI, Type } from "@google/genai";
 import Markdown from 'react-markdown';
 
@@ -56,6 +57,7 @@ const TYPE_COLORS: Record<string, string> = {
 
 export default function TeamAnalyzer() {
   const { t } = useTranslation();
+  const { pokemonList, isLoading: isPokemonListLoading } = usePokemonList();
   const { data: customGames } = usePokemonData<Game>('customGames');
   const { data: allTeams, addItem: addTeam, updateItem: updateTeam, removeItem: removeTeam, loading: teamsLoading } = usePokemonData<Team>('teams');
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
@@ -64,9 +66,7 @@ export default function TeamAnalyzer() {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [isGameSelectorOpen, setIsGameSelectorOpen] = useState(false);
   const [isTeamSelectorOpen, setIsTeamSelectorOpen] = useState(false);
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -123,52 +123,6 @@ export default function TeamAnalyzer() {
       }
     }
   }, [teamsLoading, allTeams.length]);
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      const CACHE_KEY = 'pokeapi_pokemon_list_all';
-      const CACHE_TIME_KEY = 'pokeapi_pokemon_list_all_time';
-      const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
-      const cachedData = localStorage.getItem(CACHE_KEY);
-      const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
-
-      if (cachedData && cachedTime && Date.now() - parseInt(cachedTime) < CACHE_DURATION) {
-        setPokemonList(JSON.parse(cachedData));
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025', { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        const data = await res.json();
-        const formatted = data.results.map((p: any, index: number) => ({
-          id: index + 1,
-          name: p.name.charAt(0).toUpperCase() + p.name.slice(1),
-          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
-          shinySprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${index + 1}.png`,
-        }));
-
-        localStorage.setItem(CACHE_KEY, JSON.stringify(formatted));
-        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
-
-        setPokemonList(formatted);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching pokemon:', error);
-        if (cachedData) {
-          setPokemonList(JSON.parse(cachedData));
-        }
-        setIsLoading(false);
-      }
-    };
-    fetchPokemon();
-  }, []);
 
   const updateCurrentTeam = (members: TeamMember[]) => {
     if (activeTeamId) {
@@ -484,7 +438,7 @@ export default function TeamAnalyzer() {
         <title>Team Analyzer - Trainer's Log | Pokémon Team Builder & AI Analysis</title>
         <meta name="description" content="Build and analyze your Pokémon teams with our AI-powered Team Builder. Check type coverage, weaknesses, and get expert suggestions to win more battles." />
         <meta name="keywords" content="Pokémon Team Builder, Team Analyzer, Pokémon Strategy, AI Pokémon Analysis, Competitive Pokémon, Team Coverage, Pokémon Weakness Checker" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/team" />
+        <link rel="canonical" href="https://www.trainerslog.com/team" />
       </Helmet>
       <header className="mb-12 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
         <div className="flex flex-col w-full lg:flex-1 lg:min-w-0 gap-6">
@@ -947,7 +901,7 @@ export default function TeamAnalyzer() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {isGameDexLoading ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('teamAnalyzer.syncing')}</div>
-                  ) : isLoading ? (
+                  ) : isPokemonListLoading ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('teamAnalyzer.loading')}</div>
                   ) : filteredPokemon.items.length === 0 ? (
                     <div className="col-span-full py-20 text-center text-slate-500 font-black uppercase italic tracking-widest">{t('shinyHunting.noPokemon')}</div>

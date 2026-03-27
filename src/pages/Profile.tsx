@@ -8,6 +8,7 @@ import { User, Camera, Shield, Heart, Edit3, Save, X, Sparkles, Trophy, Calendar
 import { useAuth } from '../contexts/AuthContext';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { usePokemonData } from '../hooks/usePokemonData';
+import { usePokemonList } from '../hooks/usePokemonList';
 import { PersonalPokedex, Pokemon } from '../types';
 
 const TRAINER_AVATARS = [
@@ -38,6 +39,7 @@ export default function Profile() {
   const { user, sendVerificationEmail, deleteAccount, logout } = useAuth();
   const { profile, updateProfile, loading: profileLoading } = useUserProfile();
   const { data: pokedexes } = usePokemonData<PersonalPokedex>('pokedexes');
+  const { pokemonList } = usePokemonList();
   
   const THEME_COLORS = [
     { name: t('profile.colors.pokeRed'), value: '#ef4444' },
@@ -52,7 +54,6 @@ export default function Profile() {
   
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState<any>(null);
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [pokemonAvatars, setPokemonAvatars] = useState<string[]>([]);
   const [isSearchingFav, setIsSearchingFav] = useState(false);
   const [favSearch, setFavSearch] = useState('');
@@ -86,37 +87,12 @@ export default function Profile() {
   }, [profile]);
 
   useEffect(() => {
-    const fetchPokemon = async () => {
-      try {
-        // Try to get from cache first
-        const cached = localStorage.getItem('pokedex_pokemon_list');
-        if (cached) {
-          const data = JSON.parse(cached);
-          setPokemonList(data);
-          setPokemonAvatars(data.slice(0, 12).map((p: any) => p.sprite));
-          return;
-        }
-
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025');
-        const data = await res.json();
-        const formatted = data.results.map((p: any, index: number) => ({
-          id: index + 1,
-          name: p.name.charAt(0).toUpperCase() + p.name.slice(1),
-          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
-        }));
-        
-        setPokemonList(formatted);
-        localStorage.setItem('pokedex_pokemon_list', JSON.stringify(formatted));
-        
-        // Pick some popular pokemon for avatars
-        const popularIds = [1, 4, 7, 25, 133, 150, 151, 249, 250, 384, 448, 493];
-        setPokemonAvatars(popularIds.map(id => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`));
-      } catch (error) {
-        console.error('Error fetching pokemon:', error);
-      }
-    };
-    fetchPokemon();
-  }, []);
+    if (pokemonList.length > 0) {
+      // Pick some popular pokemon for avatars
+      const popularIds = [1, 4, 7, 25, 133, 150, 151, 249, 250, 384, 448, 493];
+      setPokemonAvatars(popularIds.map(id => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`));
+    }
+  }, [pokemonList]);
 
   const stats = useMemo(() => {
     let totalCaught = 0;
@@ -279,7 +255,7 @@ export default function Profile() {
         <title>Trainer Profile - Trainer's Log | Your Pokémon Journey</title>
         <meta name="description" content="Manage your Pokémon trainer profile. View your stats, collection progress, and customize your trainer identity in Trainer's Log." />
         <meta name="keywords" content="Pokémon Trainer, Trainer Profile, Pokémon Stats, Pokémon Collection Progress" />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/profile" />
+        <link rel="canonical" href="https://www.trainerslog.com/profile" />
       </Helmet>
       {/* Profile Header Card */}
       <div className="relative mb-12">

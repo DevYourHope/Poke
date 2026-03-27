@@ -4,7 +4,21 @@ const API_BASE = '/api';
 
 async function getAuthHeaders() {
   const user = auth.currentUser();
-  if (!user) throw new Error('Not authenticated');
+  
+  // Check if we are in AI Studio preview (run.app)
+  const isDemo = window.location.hostname.includes('run.app');
+  const demoUser = localStorage.getItem('demo_user');
+
+  if (!user) {
+    if (isDemo && demoUser) {
+      // In demo mode, we don't need a real JWT as the backend handles it
+      return {
+        'Content-Type': 'application/json',
+        'X-Demo-User': 'true'
+      };
+    }
+    throw new Error('Not authenticated');
+  }
   
   try {
     const token = await user.jwt();

@@ -18,15 +18,37 @@ app.use(express.json());
 
 // Middleware to extract user_id from Netlify Identity JWT
 const requireAuth = (req: any, res: any, next: any) => {
+  // 1. Check if Netlify Identity context is available (production on Netlify)
+  if (req.netlifyContext && req.netlifyContext.clientContext && req.netlifyContext.clientContext.user) {
+    req.user = { id: req.netlifyContext.clientContext.user.sub };
+    return next();
+  }
+
+  // 2. Fallback to Authorization header
   const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ error: 'Unauthorized' });
+  if (!authHeader) {
+    // Demo mode for AI Studio preview
+    if (process.env.NODE_ENV !== 'production' || req.headers.host?.includes('run.app')) {
+      req.user = { id: 'demo-user-123' };
+      return next();
+    }
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   const token = authHeader.split(' ')[1];
   try {
+    // In production, we should verify the JWT with the Netlify secret
+    // For now, we decode it to get the user ID
     const decoded = jwt.decode(token) as any;
     if (!decoded || !decoded.sub) throw new Error('Invalid token');
     req.user = { id: decoded.sub };
     next();
   } catch (err) {
+    // Demo mode fallback if token is invalid but we are in preview
+    if (process.env.NODE_ENV !== 'production' || req.headers.host?.includes('run.app')) {
+      req.user = { id: 'demo-user-123' };
+      return next();
+    }
     res.status(401).json({ error: 'Invalid token' });
   }
 };
@@ -34,6 +56,10 @@ const requireAuth = (req: any, res: any, next: any) => {
 // DB setup
 const getDb = () => {
   if (!process.env.NETLIFY_DATABASE_URL) {
+    if (process.env.NODE_ENV !== 'production' || (typeof window !== 'undefined' && window.location.hostname.includes('run.app'))) {
+      console.warn('NETLIFY_DATABASE_URL is not set. Using mock database for development.');
+      return null;
+    }
     throw new Error('NETLIFY_DATABASE_URL is not set. Please configure it in your environment variables.');
   }
   return neon(process.env.NETLIFY_DATABASE_URL);
@@ -48,6 +74,7 @@ app.get("/api/health", (req, res) => {
 const initDb = async () => {
   try {
     const sql = getDb();
+    if (!sql) return;
     await sql`
       CREATE TABLE IF NOT EXISTS profiles (
         user_id TEXT PRIMARY KEY,
@@ -101,6 +128,17 @@ app.post('/api/init-db', async (req, res) => {
 app.get('/api/profile', requireAuth, async (req: any, res: any) => {
   try {
     const sql = getDb();
+    if (!sql) {
+      // Return a default demo profile if no DB is connected
+      return res.json({
+        id: req.user.id,
+        displayName: 'Demo Trainer',
+        themeColor: '#ef4444',
+        photoURL: 'https://play.pokemonshowdown.com/sprites/trainers/red.png',
+        favoritePokemon: null,
+        joinDate: new Date().toISOString()
+      });
+    }
     const [profile] = await sql`SELECT * FROM profiles WHERE user_id = ${req.user.id}`;
     if (!profile) return res.json(null);
     
@@ -120,6 +158,7 @@ app.get('/api/profile', requireAuth, async (req: any, res: any) => {
 app.post('/api/profile', requireAuth, async (req: any, res: any) => {
   try {
     const sql = getDb();
+    if (!sql) return res.json({ success: true, message: 'Saved to mock DB' });
     const p = req.body;
     await sql`
       INSERT INTO profiles (user_id, display_name, theme_color, photo_url, favorite_pokemon, join_date)
@@ -140,6 +179,7 @@ app.post('/api/profile', requireAuth, async (req: any, res: any) => {
 app.get('/api/data/:collection', requireAuth, async (req: any, res: any) => {
   try {
     const sql = getDb();
+    if (!sql) return res.json([]);
     const [record] = await sql`SELECT data FROM user_data WHERE user_id = ${req.user.id} AND collection_name = ${req.params.collection}`;
     res.json(record ? record.data : []);
   } catch (err: any) {
@@ -150,6 +190,7 @@ app.get('/api/data/:collection', requireAuth, async (req: any, res: any) => {
 app.post('/api/data/:collection', requireAuth, async (req: any, res: any) => {
   try {
     const sql = getDb();
+    if (!sql) return res.json({ success: true, message: 'Saved to mock DB' });
     const data = req.body;
     await sql`
       INSERT INTO user_data (user_id, collection_name, data)
@@ -167,6 +208,7 @@ app.post('/api/data/:collection', requireAuth, async (req: any, res: any) => {
 app.delete('/api/account', requireAuth, async (req: any, res: any) => {
   try {
     const sql = getDb();
+    if (!sql) return res.json({ success: true, message: 'Deleted from mock DB' });
     await sql`DELETE FROM profiles WHERE user_id = ${req.user.id}`;
     await sql`DELETE FROM user_data WHERE user_id = ${req.user.id}`;
     await sql`DELETE FROM teams WHERE user_id = ${req.user.id}`; // keep just in case

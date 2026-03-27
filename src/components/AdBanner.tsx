@@ -28,17 +28,21 @@ export default function AdBanner({ type = 'horizontal', className = '' }: AdBann
     const pushAd = () => {
       try {
         if (adRef.current && !adRef.current.getAttribute('data-adsbygoogle-status')) {
-          const width = containerRef.current?.offsetWidth || 0;
+          const container = containerRef.current;
+          if (!container) return;
+
+          const width = container.offsetWidth;
+          const isVisible = container.offsetParent !== null;
           
-          if (width > 0) {
+          if (width > 0 && isVisible) {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
-          } else if (attempts < 10) {
+          } else if (attempts < 15) {
             attempts++;
-            timeoutId = setTimeout(pushAd, 200);
+            timeoutId = setTimeout(pushAd, 500); // Increased delay for better stability
           }
         }
       } catch (e) {
-        console.error('AdSense error:', e);
+        console.error('AdSense push error:', e);
       }
     };
 

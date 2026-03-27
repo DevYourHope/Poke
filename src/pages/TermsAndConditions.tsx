@@ -10,7 +10,7 @@ export default function TermsAndConditions() {
       <Helmet>
         <title>{t('terms.title')} | Trainer's Log</title>
         <meta name="description" content={t('terms.welcome')} />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/terms-and-conditions" />
+        <link rel="canonical" href="https://www.trainerslog.com/terms-and-conditions" />
       </Helmet>
       <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-8">{t('terms.title')}</h1>
       <div className="space-y-6 leading-relaxed">

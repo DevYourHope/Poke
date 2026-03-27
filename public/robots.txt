@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /.netlify/
 
-Sitemap: https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/sitemap.xml
+Sitemap: https://www.trainerslog.com/sitemap.xml

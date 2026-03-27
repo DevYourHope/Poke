@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
       <Helmet>
         <title>{t('privacy.title')} | Trainer's Log</title>
         <meta name="description" content={t('privacy.welcome')} />
-        <link rel="canonical" href="https://ais-pre-cylpbrmhe3ohvkej472f3a-487008938627.europe-west2.run.app/privacy-policy" />
+        <link rel="canonical" href="https://www.trainerslog.com/privacy-policy" />
       </Helmet>
       <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-8">{t('privacy.title')}</h1>
       <div className="space-y-6 leading-relaxed">

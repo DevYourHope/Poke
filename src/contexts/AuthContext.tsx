@@ -29,8 +29,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Handle Netlify Identity hash tokens (e.g. after Google login)
   useEffect(() => {
-    // Handle Netlify Identity hash tokens (e.g. after Google login)
+    // Check if we are in AI Studio preview (run.app)
+    const isDemo = window.location.hostname.includes('run.app');
+
     if (window.location.hash) {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
@@ -79,16 +82,54 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const currentUser = auth.currentUser();
     if (currentUser) {
       setUser(currentUser as unknown as AuthUser);
+    } else if (isDemo) {
+      // Check for demo user in localStorage
+      const demoUser = localStorage.getItem('demo_user');
+      if (demoUser) {
+        setUser(JSON.parse(demoUser));
+      }
     }
     setLoading(false);
   }, []);
 
   const login = () => {
+    // Check if we are in AI Studio preview (run.app)
+    if (window.location.hostname.includes('run.app')) {
+      const demoUser = {
+        id: 'demo-user-123',
+        email: 'demo@trainerlog.com',
+        user_metadata: {
+          full_name: 'Demo Trainer',
+          avatar_url: 'https://play.pokemonshowdown.com/sprites/trainers/red.png'
+        }
+      };
+      localStorage.setItem('demo_user', JSON.stringify(demoUser));
+      setUser(demoUser);
+      alert('MODALITÀ DEMO: Hai effettuato l\'accesso come utente demo per l\'anteprima. Su Netlify verrà utilizzato il vero login Google.');
+      return;
+    }
+
     // Redirect to Netlify Identity's Google OAuth flow
     window.location.href = `${(auth as any).api.apiRoot}/authorize?provider=google&invite_token=`;
   };
 
   const loginEmail = async (email: string, pass: string) => {
+    // Check if we are in AI Studio preview (run.app)
+    if (window.location.hostname.includes('run.app')) {
+      const demoUser = {
+        id: 'demo-user-123',
+        email: email,
+        user_metadata: {
+          full_name: email.split('@')[0],
+          avatar_url: 'https://play.pokemonshowdown.com/sprites/trainers/red.png'
+        }
+      };
+      localStorage.setItem('demo_user', JSON.stringify(demoUser));
+      setUser(demoUser);
+      alert('MODALITÀ DEMO: Accesso effettuato con email demo.');
+      return demoUser;
+    }
+
     setLoading(true);
     try {
       const result = await auth.login(email, pass, true);
@@ -100,6 +141,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signUp = async (email: string, pass: string, name: string, avatar?: string) => {
+    // Check if we are in AI Studio preview (run.app)
+    if (window.location.hostname.includes('run.app')) {
+      const demoUser = {
+        id: 'demo-user-123',
+        email: email,
+        user_metadata: {
+          full_name: name,
+          avatar_url: avatar || 'https://play.pokemonshowdown.com/sprites/trainers/red.png'
+        }
+      };
+      localStorage.setItem('demo_user', JSON.stringify(demoUser));
+      setUser(demoUser);
+      alert('MODALITÀ DEMO: Account creato localmente per l\'anteprima.');
+      return demoUser;
+    }
+
     setLoading(true);
     try {
       const result = await auth.signup(email, pass, {
@@ -113,11 +170,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
+    localStorage.removeItem('demo_user');
     const currentUser = auth.currentUser();
     if (currentUser) {
       await currentUser.logout();
-      setUser(null);
     }
+    setUser(null);
   };
 
   const sendVerificationEmail = async () => {
@@ -125,11 +183,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const resetPassword = async (email: string) => {
+    // Check if we are in AI Studio preview (run.app)
+    if (window.location.hostname.includes('run.app')) {
+      alert('MODALITÀ DEMO: Link di recupero password simulato per ' + email);
+      return;
+    }
     await auth.requestPasswordRecovery(email);
   };
 
   const deleteAccount = async () => {
     try {
+      // Check if we are in AI Studio preview (run.app)
+      if (window.location.hostname.includes('run.app')) {
+        await logout();
+        alert('MODALITÀ DEMO: Dati demo eliminati localmente.');
+        return;
+      }
+
       // Delete user data from Neon DB
       const user = auth.currentUser();
       if (user) {
