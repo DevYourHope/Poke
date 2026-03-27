@@ -1,0 +1,404 @@
+{
+  "login": "Login",
+  "logout": "Esci",
+  "signup": "Registrati",
+  "connected": "Connesso",
+  "guestMode": "Modalità Ospite (Dati temporanei)",
+  "cloudSyncActive": "Sincronizzazione Cloud Attiva",
+  "privacyPolicy": "Privacy Policy",
+  "termsConditions": "Termini e Condizioni",
+  "copyright": "© 2026 Trainer's log. Pokémon è un marchio registrato di The Pokémon Company, Nintendo, Game Freak e Creatures Inc.",
+  "googleLoginFailed": "Accesso con Google fallito",
+  "switchToItalian": "Passa all'Italiano",
+  "switchToEnglish": "Passa all'Inglese",
+  "localSave": "Salvataggio Locale",
+  "cloudSave": "Netlify Sync",
+  "localSaveActive": "Salvataggio Locale Attivo",
+  "netlifySyncActive": "Netlify Sync Attivo",
+  "defaultTrainerName": "Allenatore",
+  "sponsored": "Sponsorizzato",
+  "home": {
+    "navLabel": "Home",
+    "welcome": "Benvenuto,",
+    "trainer": "Allenatore",
+    "subtitle": "Il tuo hub personale per l'avventura. Cosa vuoi fare oggi? Seleziona un'app dal tuo Trainer's Log per iniziare.",
+    "launchApp": "Avvia applicazione",
+    "supportTitle": "Supporta Trainer's Log",
+    "supportSubtitle": "Il nostro hub è gratuito per tutti. Se vuoi aiutarci a crescere, dai un'occhiata al nostro negozio di prodotti consigliati!",
+    "goToShop": "Vai al Negozio",
+    "placeholderTitle": "Funzione in sviluppo",
+    "placeholderSubtitle": "Questa funzione è in fase di sviluppo. Dimmi cosa vuoi aggiungere per renderla perfetta!",
+    "backHome": "Torna alla Home",
+    "features": {
+      "shinyHunting": {
+        "title": "Shiny Hunting",
+        "desc": "Traccia i tuoi incontri e trova Pokémon cromatici."
+      },
+      "pokedex": {
+        "title": "Pokédex",
+        "desc": "Crea e gestisci le tue collezioni personali."
+      },
+      "team": {
+        "title": "Squadra",
+        "desc": "Crea e analizza il tuo team perfetto."
+      },
+      "versions": {
+        "title": "Versioni",
+        "desc": "Crea e gestisci le tue versioni di gioco personalizzate."
+      },
+      "shop": {
+        "title": "Negozio",
+        "desc": "Scopri le migliori offerte su giochi e carte Pokémon."
+      }
+    }
+  },
+  "shinyHunting": {
+    "navLabel": "Shiny Hunter",
+    "title": "Shiny",
+    "hunter": "Hunter",
+    "subtitle": "Modulo tracking shiny v2.0",
+    "choosePokemon": "Scegli Pokémon",
+    "activeSession": "Sessione Attiva",
+    "parameters": "Parametri",
+    "gameVersion": "Versione Gioco",
+    "probability": "Probabilità (1 / X)",
+    "notesPlaceholder": "Es: Metodo Masuda, SOS Chaining, ecc.",
+    "notesLabel": "Note / Metodo Cattura",
+    "dataAnalysis": "Analisi Dati",
+    "singleProb": "Probabilità Singola",
+    "cumulativeSuccess": "Successo Cumulativo",
+    "baseForm": "Forma Base",
+    "shinyForm": "Forma Shiny",
+    "totalEncounters": "Incontri Totali",
+    "registerEncounter": "Registra Incontro",
+    "shinyFound": "Shiny Trovato!",
+    "startHunt": "Inizia la Caccia",
+    "startHuntDesc": "Seleziona un Pokémon dal database per iniziare a tracciare i tuoi incontri.",
+    "openDatabase": "Apri Database",
+    "shinyLog": "Shiny",
+    "diary": "Diario",
+    "trophyRoom": "La tua bacheca dei trofei",
+    "total": "Totale",
+    "noShiny": "Nessun Pokémon shiny registrato nel diario",
+    "encounters": "Incontri",
+    "date": "Data",
+    "pokemonDatabase": "Database Pokémon",
+    "selectObjective": "Seleziona il tuo obiettivo",
+    "searchPlaceholder": "Cerca per nome o numero Pokédex...",
+    "syncing": "Sincronizzazione Pokédex Regionale...",
+    "loading": "Caricamento Database...",
+    "noPokemon": "Nessun Pokémon trovato",
+    "deleteConfirm": "Vuoi davvero eliminare questo record dal diario?",
+    "saved": "Shiny salvato nel Diario!",
+    "customVersionDesc": "Versione personalizzata. Pokedex: {{pokedex}}",
+    "baseValueDesc": "Valore base per {{game}}: 1/{{odds}}"
+  },
+  "auth": {
+    "welcomeBack": "Bentornato",
+    "newTrainer": "Nuovo Allenatore",
+    "resetPassword": "Reset Password",
+    "name": "Nome",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Dimenticata?",
+    "yourName": "Il tuo nome",
+    "emailPlaceholder": "allenatore@pallet.it",
+    "loginButton": "Accedi",
+    "logoutButton": "Esci",
+    "signupButton": "Registrati",
+    "resetButton": "Invia Email di Reset",
+    "continue": "Continua",
+    "backTo": "Torna a",
+    "or": "Oppure",
+    "continueWithGoogle": "Continua con Google",
+    "noAccount": "Non hai un account?",
+    "haveAccount": "Hai già un account?",
+    "registerNow": "Registrati ora",
+    "backTo": "Torna al",
+    "accountCreated": "Account creato! Controlla la tua email per verificare l'account.",
+    "resetSent": "Email di reset inviata! Controlla la tua posta.",
+    "operationFailed": "Operazione fallita",
+    "errors": {
+      "emailAlreadyInUse": "Questa email è già in uso.",
+      "invalidEmail": "Indirizzo email non valido.",
+      "weakPassword": "La password è troppo debole.",
+      "userNotFound": "Utente non trovato.",
+      "wrongPassword": "Password errata.",
+      "invalidCredential": "Credenziali non valide.",
+      "tooManyRequests": "Troppe richieste. Riprova più tardi.",
+      "requiresRecentLogin": "Questa operazione richiede un accesso recente. Effettua il logout e accedi di nuovo.",
+      "generic": "Si è verificato un errore. Riprova."
+    }
+  },
+  "pokedex": {
+    "navLabel": "Pokédex",
+    "title": "I Miei",
+    "subtitle": "Trainer's log",
+    "manageCollections": "Gestisci le tue collezioni personali",
+    "newPokedex": "Nuovo Pokédex",
+    "activeCollections": "Collezioni Attive",
+    "noPokedexCreated": "Nessun Pokédex creato",
+    "stats": "Statistiche",
+    "completion": "Completamento",
+    "caught": "Catturati",
+    "shiny": "Cromatici",
+    "searchPlaceholder": "Cerca Pokémon nel Pokédex...",
+    "page": "Pagina",
+    "noPokedexSelected": "Nessun Pokédex Selezionato",
+    "noPokedexSelectedDesc": "Crea un nuovo Pokédex o selezionane uno esistente per iniziare a tracciare la tua collezione.",
+    "syncing": "Sincronizzazione Pokédex Regionale...",
+    "loading": "Caricamento Pokédex...",
+    "forceLoading": "Forza Caricamento",
+    "createTitle": "Nuovo Pokédex",
+    "collectionName": "Nome Collezione",
+    "gameVersion": "Versione di Gioco",
+    "cancel": "Annulla",
+    "createButton": "Crea Dex",
+    "deleteConfirmTitle": "Sei sicuro?",
+    "deleteConfirmDesc": "Stai per eliminare questo Pokédex. Tutti i progressi di cattura andranno persi per sempre.",
+    "deleteButton": "Elimina",
+    "caughtButton": "Preso",
+    "catchButton": "Cattura"
+  },
+  "teamAnalyzer": {
+    "navLabel": "Squadra",
+    "title": "Squadra",
+    "subtitle": "Builder",
+    "rename": "Rinomina Squadra",
+    "defaultTeamName": "Team {{number}}",
+    "team": "Squadra",
+    "newTeam": "Nuova Squadra",
+    "game": "Gioco",
+    "casual": "Casual",
+    "pro": "Pro",
+    "generate": "Genera",
+    "analysis": "Analisi",
+    "add": "Aggiungi",
+    "rotomDexAnalysis": "Analisi RotomDex",
+    "closeAnalysis": "Chiudi Analisi",
+    "emptySlot": "Slot Libero",
+    "teamDefense": "Difesa Team",
+    "weaknesses": "Debolezze",
+    "resistances": "Resistenze",
+    "none": "Nessuna",
+    "teamOffense": "Offesa Team",
+    "coverage": "Copertura",
+    "selectPokemon": "Seleziona Pokémon",
+    "searchPlaceholder": "Cerca Pokémon...",
+    "page": "Pagina",
+    "generateTitle": "Genera Squadra Ottimizzata",
+    "generateDesc": "Scegli uno starter e RotomDex genererà una squadra bilanciata per la tua versione di gioco.",
+    "starterPlaceholder": "Es: Pikachu, Charmander...",
+    "cancel": "Annulla",
+    "generateButton": "Genera Squadra",
+    "teamFull": "La squadra è già al completo (max 6 Pokémon)!",
+    "atLeastOneTeam": "Devi avere almeno una squadra!",
+    "generationError": "Errore durante la generazione della squadra. Riprova.",
+    "analysisError": "Errore durante l'analisi. Riprova più tardi.",
+    "syncing": "Sincronizzazione Pokédex Regionale...",
+    "loading": "Caricamento Database...",
+    "analyzer": "Analyzer",
+    "aiSubtitle": "Analisi Team con IA",
+    "casualPrompt": "Sei un amichevole Professore Pokémon. Analizza questa squadra per il gioco '{{game}}' in modo SEMPLICISSIMO.\nSquadra: {{team}}.\n\nFornisci un'analisi breve e incoraggiante focalizzata su:\n1. 'Vibe' della squadra: È un team equilibrato o divertente?\n2. Grandi Ostacoli: Contro quale Capopalestra o Superquattro bisogna stare un po' più attenti? (Solo i più importanti).\n3. Un consiglio flash: Una mossa o un Pokémon da aggiungere per stare tranquilli.\n\nUsa un linguaggio semplice, niente termini tecnici come 'EVs', 'IVs' o 'Sweeper'. Rispondi in italiano.",
+    "competitivePrompt": "Sei un analista competitivo di Pokémon (Try-harder). Analizza questa squadra per il gioco '{{game}}' in modo ESTREMAMENTE DETTAGLIATO e TECNICO.\nSquadra: {{team}}.\n\nFornisci un'analisi brutale e approfondita su:\n1. Matchup Specifici: Analizza la copertura contro OGNI Capopalestra, Superquattro e il Campione. Chi vince e chi perde?\n2. Core e Sinergie: Analizza le debolezze di tipo incrociate e se mancano ruoli fondamentali (Wall, Sweeper, Pivot).\n3. Ottimizzazione Pro: Suggerisci set di mosse specifici, strumenti tenuti e possibili sostituzioni per massimizzare il win-rate.\n\nUsa termini tecnici (STAB, Coverage, Check, Counter). Sii critico se il team ha falle evidenti. Rispondi in italiano.",
+    "analyze": "Analizza Squadra",
+    "analyzing": "Analisi in corso...",
+    "analysisError": "Errore durante l'analisi del team. Riprova."
+  },
+  "games": {
+    "scvi": "Scarlatto / Violetto",
+    "la": "Leggende: Arceus",
+    "bdsp": "Diamante Lucente / Perla Splendente",
+    "swsh": "Spada / Scudo",
+    "lgpe": "Let's Go Pikachu / Eevee",
+    "usum": "Ultrasole / Ultraluna",
+    "sm": "Sole / Luna",
+    "oras": "Rubino Omega / Zaffiro Alpha",
+    "xy": "X / Y",
+    "b2w2": "Bianco 2 / Nero 2",
+    "bw": "Bianco / Nero",
+    "hgss": "HeartGold / SoulSilver",
+    "pt": "Platino",
+    "dp": "Diamante / Perla",
+    "em": "Smeraldo",
+    "frlg": "Rosso Fuoco / Verde Foglia",
+    "rs": "Rubino / Zaffiro",
+    "c": "Cristallo",
+    "gs": "Oro / Argento",
+    "y": "Giallo",
+    "rb": "Rosso / Blu"
+  },
+  "shop": {
+    "navLabel": "Negozio",
+    "title": "Poké",
+    "subtitle": "Shop",
+    "desc": "Abbiamo selezionato i migliori prodotti Pokémon per te. Acquistando tramite i nostri link, supporti lo sviluppo di Trainer's Log!",
+    "categories": {
+      "all": "Tutti",
+      "games": "Giochi",
+      "cards": "Carte",
+      "merch": "Merchandising"
+    },
+    "hotDeal": "Offerta Speciale",
+    "viewOnAmazon": "Vedi su Amazon",
+    "disclaimer": "In qualità di Affiliato Amazon, Trainer's Log riceve un guadagno dagli acquisti idonei. Questo non comporta alcun costo aggiuntivo per te e ci aiuta a mantenere il sito gratuito e senza pubblicità invasive.",
+    "products": {
+      "arceus": {
+        "name": "Pokémon Leggende: Arceus",
+        "desc": "Esplora la regione di Hisui e cattura Pokémon in tempo reale in questa avventura rivoluzionaria."
+      },
+      "violet": {
+        "name": "Pokémon Violetto",
+        "desc": "Cavalca il leggendario Miraidon e attraversa le terre di Paldea nel futuro dei Pokémon."
+      },
+      "za": {
+        "name": "Pokémon Leggende: Z-A",
+        "desc": "Torna a Luminopoli in questa nuova avventura della serie Leggende Pokémon."
+      },
+      "za2": {
+        "name": "Pokémon Leggende: Z-A (Switch 2)",
+        "desc": "Prenota la versione per la prossima console Nintendo."
+      },
+      "bd": {
+        "name": "Pokémon Diamante Lucente",
+        "desc": "Rivivi l'emozione di Sinnoh in questo fedele remake del classico per Nintendo DS."
+      },
+      "lgp": {
+        "name": "Pokémon Let's Go Pikachu",
+        "desc": "Torna a Kanto con il tuo compagno Pikachu in questa rivisitazione moderna di Pokémon Giallo."
+      },
+      "ul": {
+        "name": "Pokémon Ultra Luna",
+        "desc": "Scopri i segreti di Necrozma e viaggia attraverso gli Ultravarchi nella regione di Alola."
+      },
+      "sun": {
+        "name": "Pokémon Sole",
+        "desc": "Inizia il tuo giro delle isole ad Alola e scopri il potere delle Mosse Z."
+      },
+      "lge": {
+        "name": "Pokémon Let's Go Eevee",
+        "desc": "Esplora Kanto con Eevee sulla tua spalla e cattura Pokémon con un nuovo sistema di lancio."
+      },
+      "switch2": {
+        "name": "Console Nintendo Switch 2",
+        "desc": "La prossima generazione di console Nintendo. Prenota ora!"
+      },
+      "switch": {
+        "name": "Console Nintendo Switch",
+        "desc": "La console versatile che ti permette di giocare dove vuoi, quando vuoi, con chi vuoi."
+      },
+      "oled": {
+        "name": "Nintendo Switch OLED",
+        "desc": "Goditi i tuoi giochi preferiti su uno splendido schermo OLED da 7 pollici."
+      }
+    }
+  },
+  "customGames": {
+    "navLabel": "Versioni",
+    "title": "Versioni",
+    "subtitle": "Personalizzate",
+    "desc": "Crea e gestisci le tue versioni di gioco personalizzate",
+    "newVersion": "Nuova Versione",
+    "versionName": "Nome Versione",
+    "versionNamePlaceholder": "Es: La mia Hardcore Run",
+    "referencePokedex": "Pokédex di Riferimento",
+    "probabilityDesc": "La probabilità verrà impostata automaticamente in base al gioco scelto (1/{{odds}}).",
+    "createButton": "Crea Versione",
+    "yourVersions": "Le tue Versioni",
+    "noVersions": "Nessuna versione personalizzata creata",
+    "pokedexLabel": "Pokédex",
+    "probabilityLabel": "Probabilità",
+    "deleteConfirmTitle": "Sei sicuro?",
+    "deleteConfirmDesc": "Stai per eliminare questa versione personalizzata. Non potrai più usarla per i tuoi Pokédex o Shiny Hunter.",
+    "cancel": "Annulla",
+    "deleteButton": "Elimina",
+    "suggestedTitle": "Fan Game Suggeriti",
+    "suggestedDesc": "Aggiungi rapidamente ROM hack o fan game popolari.",
+    "addButton": "Aggiungi"
+  },
+  "profile": {
+    "navLabel": "Profilo",
+    "title": "Profilo",
+    "subtitle": "Allenatore",
+    "edit": "Modifica",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "bioTitle": "Biografia Allenatore",
+    "bioPlaceholder": "Scrivi qualcosa su di te...",
+    "verification": {
+      "unverified": "Email non verificata",
+      "unverifiedDesc": "Verifica la tua email per sbloccare tutte le funzioni.",
+      "resend": "Reinvia Email",
+      "sent": "Inviata!",
+      "check": "Controlla",
+      "verified": "Account Verificato",
+      "verifiedDesc": "Il tuo account è protetto e verificato."
+    },
+    "chooseAvatar": "Scegli Avatar",
+    "trainers": "Allenatori",
+    "pokemon": "Pokémon",
+    "themeColor": "Colore Tema",
+    "stats": {
+      "caught": "Pokémon Catturati",
+      "dexes": "Pokédex Creati"
+    },
+    "favoritePokemon": "Pokémon Preferito",
+    "noFavorite": "Nessun preferito selezionato",
+    "changeFavorite": "Cambia Preferito",
+    "chooseCompanion": "Scegli il tuo compagno",
+    "searchPokemon": "Cerca Pokémon...",
+    "since": "Dal",
+    "loginRequired": "Accesso Richiesto",
+    "loginRequiredDesc": "Devi essere loggato per visualizzare e personalizzare il tuo profilo Allenatore.",
+    "loading": "Caricamento Profilo...",
+    "forbiddenWordsError": "Il nome contiene parole non permesse.",
+    "defaultBio": "Benvenuto nel mio profilo!",
+    "defaultTrainerTitle": "Nuovo Allenatore",
+    "colors": {
+      "pokeRed": "Rosso Poké",
+      "sapphireBlue": "Blu Zaffiro",
+      "emeraldGreen": "Verde Smeraldo",
+      "pikachuYellow": "Giallo Pikachu",
+      "masterPurple": "Viola Master",
+      "umbreonBlack": "Nero Umbreon",
+      "mewPink": "Rosa Mew",
+      "charizardOrange": "Arancio Charizard"
+    },
+    "dangerZone": "Zona Pericolo",
+    "deleteAccount": "Elimina Account",
+    "deleteAccountConfirm": "Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e tutti i tuoi dati andranno persi.",
+    "deleteAccountButton": "Elimina per Sempre"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "welcome": "Benvenuto su Trainer's Log. La tua privacy è importante per noi. Questa informativa spiega come gestiamo i tuoi dati.",
+    "section1": {
+      "title": "1. Dati Raccolti",
+      "content": "Raccogliamo solo i dati necessari per il funzionamento del servizio: email, nome visualizzato e preferenze di gioco (Pokédex, Shiny Hunting)."
+    },
+    "section2": {
+      "title": "2. Utilizzo dei Dati",
+      "content": "I tuoi dati vengono salvati localmente su questo dispositivo. Non è prevista la sincronizzazione cloud."
+    },
+    "section3": {
+      "title": "3. Servizi di Terze Parti",
+      "content": "Utilizziamo Firebase (Google) per l'autenticazione e il database. PokéAPI viene utilizzata per recuperare i dati dei Pokémon."
+    }
+  },
+  "terms": {
+    "title": "Termini e Condizioni",
+    "welcome": "Accedendo a Trainer's Log, accetti i seguenti termini e condizioni d'uso.",
+    "section1": {
+      "title": "1. Utilizzo del Servizio",
+      "content": "Questo sito è uno strumento per allenatori di Pokémon. Non siamo affiliati con Nintendo, Game Freak o The Pokémon Company."
+    },
+    "section2": {
+      "title": "2. Dati Utente",
+      "content": "Sei responsabile dei dati inseriti. Non è permesso l'uso di nomi offensivi o illegali."
+    },
+    "section3": {
+      "title": "3. Limitazione di Responsabilità",
+      "content": "Il servizio è fornito 'così com'è'. Non garantiamo la disponibilità continua del servizio o la persistenza dei dati in caso di problemi tecnici gravi."
+    }
+  }
+}

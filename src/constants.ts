@@ -1,0 +1,25 @@
+import { Game } from './types';
+
+export const GAMES: Game[] = [
+  { id: 'scvi', name: 'games.scvi', baseOdds: 4096, pokedex: 'paldea', maxNationalId: 1025 },
+  { id: 'la', name: 'games.la', baseOdds: 4096, pokedex: 'hisui', maxNationalId: 905 },
+  { id: 'bdsp', name: 'games.bdsp', baseOdds: 4096, pokedex: 'bdsp', maxNationalId: 493 },
+  { id: 'swsh', name: 'games.swsh', baseOdds: 4096, pokedex: 'galar', maxNationalId: 898 },
+  { id: 'lgpe', name: 'games.lgpe', baseOdds: 4096, pokedex: 'letsgo-kanto', maxNationalId: 153 },
+  { id: 'usum', name: 'games.usum', baseOdds: 4096, pokedex: 'updated-alola', maxNationalId: 807 },
+  { id: 'sm', name: 'games.sm', baseOdds: 4096, pokedex: 'original-alola', maxNationalId: 802 },
+  { id: 'oras', name: 'games.oras', baseOdds: 4096, pokedex: 'updated-hoenn', maxNationalId: 721 },
+  { id: 'xy', name: 'games.xy', baseOdds: 4096, pokedex: 'kalos-central', maxNationalId: 721 },
+  { id: 'b2w2', name: 'games.b2w2', baseOdds: 8192, pokedex: 'updated-unova', maxNationalId: 649 },
+  { id: 'bw', name: 'games.bw', baseOdds: 8192, pokedex: 'original-unova', maxNationalId: 649 },
+  { id: 'hgss', name: 'games.hgss', baseOdds: 8192, pokedex: 'updated-johto', maxNationalId: 493 },
+  { id: 'pt', name: 'games.pt', baseOdds: 8192, pokedex: 'extended-sinnoh', maxNationalId: 493 },
+  { id: 'dp', name: 'games.dp', baseOdds: 8192, pokedex: 'original-sinnoh', maxNationalId: 493 },
+  { id: 'em', name: 'games.em', baseOdds: 8192, pokedex: 'hoenn', maxNationalId: 386 },
+  { id: 'frlg', name: 'games.frlg', baseOdds: 8192, pokedex: 'kanto', maxNationalId: 386 },
+  { id: 'rs', name: 'games.rs', baseOdds: 8192, pokedex: 'hoenn', maxNationalId: 386 },
+  { id: 'c', name: 'games.c', baseOdds: 8192, pokedex: 'original-johto', maxNationalId: 251 },
+  { id: 'gs', name: 'games.gs', baseOdds: 8192, pokedex: 'original-johto', maxNationalId: 251 },
+  { id: 'y', name: 'games.y', baseOdds: 8192, pokedex: 'kanto', maxNationalId: 151 },
+  { id: 'rb', name: 'games.rb', baseOdds: 8192, pokedex: 'kanto', maxNationalId: 151 },
+];
